@@ -17,6 +17,7 @@
     "typescript": "^5.7.3"
   },
   "devDependencies": {
+    "happy-dom": "^16.7.3",
     "vitest": "^3.0.4"
   }
 }

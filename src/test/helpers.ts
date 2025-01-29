@@ -14,8 +14,8 @@ export async function renderAstroComponent<T extends AstroComponentFactory>(Comp
   const container = await AstroContainer.create();
   const result = await container.renderToString(Component, options);
 
-  const template = document.createElement("template");
-  template.innerHTML = result;
+  const div = document.createElement("div");
+  div.innerHTML = result;
 
-  return template.content;
+  return div;
 }

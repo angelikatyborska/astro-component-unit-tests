@@ -4,11 +4,15 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "check": "astro check",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.1.10"
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/ts-plugin": "^1.10.4",
+    "astro": "^5.1.10",
+    "typescript": "^5.7.3"
   }
 }

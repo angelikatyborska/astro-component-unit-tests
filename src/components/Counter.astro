@@ -1,0 +1,54 @@
+---
+interface Props {
+  initialCount?: number;
+}
+
+const { initialCount = 0} = Astro.props
+
+---
+
+<div class="wrapper">
+  <button data-subtract>-1</button>
+  <span data-current-count>{initialCount}</span>
+  <button data-add>+1</button>
+</div>
+
+<script>
+  function updateCount(delta: number) {
+    const currentCountElement = document.querySelector('[data-current-count]')
+
+    if (currentCountElement) {
+      const currentCount = parseInt(currentCountElement.textContent || "", 10)
+      const newCount = currentCount + delta;
+      currentCountElement.textContent = newCount.toString();
+    }
+  }
+
+  const buttonAdd = document.querySelector('[data-add]')
+  const buttonSubtract = document.querySelector('[data-subtract]')
+
+  if (buttonAdd) {
+    buttonAdd.addEventListener('click', () => updateCount(1))
+  }
+
+  if (buttonSubtract) {
+    buttonSubtract.addEventListener('click', () => updateCount(-1))
+  }
+</script>
+
+<style>
+  .wrapper {
+    display: grid;
+    width: 300px;
+    font-size: 30px;
+    margin: 50px auto;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  button {
+    padding: 20px;
+    font-size: 20px;
+  }
+</style>

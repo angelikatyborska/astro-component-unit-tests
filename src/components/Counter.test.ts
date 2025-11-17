@@ -2,7 +2,7 @@
 import { describe, test, expect } from 'vitest';
 import { getByText, getAllByRole } from "@testing-library/dom";
 import Counter from "./Counter.astro";
-import {renderAstroComponent} from "../test/helpers.ts";
+import { renderAstroComponent } from "../test/helpers.ts";
 
 describe("Counter", () => {
   test("has default initial count", async () => {

@@ -1,5 +1,6 @@
 import type { ComponentProps } from "astro/types";
 import { experimental_AstroContainer as AstroContainer, type ContainerRenderOptions } from "astro/container";
+import { Window } from "happy-dom";
 
 type AstroComponentFactory = Parameters<AstroContainer["renderToString"]>[0];
 
@@ -14,8 +15,27 @@ export async function renderAstroComponent<T extends AstroComponentFactory>(Comp
   const container = await AstroContainer.create();
   const result = await container.renderToString(Component, options);
 
-  const div = document.createElement("div");
-  div.innerHTML = result;
+  // In Astro 5.15.6, changes were added that prevent Astro components from rendering "in the browser",
+  // which also applies to rendering Astro components after happy-dom has been loaded.
+  // To work around this problem, we need to render the Astro component first, and only then
+  // initialize happy-dom to get access to the DOM.
+  const window = new Window({
+    innerHeight: 768,
+    innerWidth: 1024,
+    url: "http://localhost:4321",
+  });
 
-  return div;
+  window.document.write(`<html><head><title>Test page</title></head><body></body></html>`);
+
+  await window.happyDOM.waitUntilComplete();
+
+  const template = window.document.createElement("template");
+  template.innerHTML = result;
+
+  await window.happyDOM.close();
+
+  // Overwriting happy-dom DocumentFragment type with the TS DOM DocumentFragment type.
+  // happy-dom types for DocumentFragment.querySelector are completely illogical.
+  // They expect the selector to be the element name, e.g. querySelector<'span'>('.line') is a type error.
+  return template.content as unknown as DocumentFragment;
 }

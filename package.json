@@ -11,15 +11,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/ts-plugin": "^1.10.4",
-    "astro": "^5.15.5",
+    "@astrojs/check": "^0.9.7",
+    "@astrojs/ts-plugin": "^1.10.7",
+    "astro": "^6.0.4",
     "typescript": "^5.7.3"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "happy-dom": "^16.7.3",
-    "vitest": "^3.0.4"
+    "vitest": "^3.2.4"
   }
 }
